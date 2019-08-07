@@ -29,7 +29,10 @@ const UserForm = ({ status, errors, touched, values, isSubmitting }) => {
           {touched.password && errors.password && <p>{errors.password}</p>}
           <Field type="password" name="password" placeholder="Password" />
         </div>
-        <label>
+
+        <div>
+
+        <label>{touched.terms && errors.terms && <p>{errors.terms}</p>}
           Terms of Service
           <Field
             type="checkbox"
@@ -38,6 +41,7 @@ const UserForm = ({ status, errors, touched, values, isSubmitting }) => {
           />
           <span className="checkmark" />
         </label>
+        </div>
         <button disabled={isSubmitting}>Submit!</button>
       </Form>
 
@@ -74,6 +78,7 @@ const FormikUserForm = withFormik({
       .required('Password is required'),
     terms: Yup.bool()
       .oneOf([true], 'You must accept the terms')
+      .required('You have to agree with our terms')
   }),
 
   handleSubmit(values, { setStatus, resetForm, setSubmitting }) {
